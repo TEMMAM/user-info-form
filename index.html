@@ -4,7 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Submission</title>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
     <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
         function submitForm(event) {
             event.preventDefault(); // Prevent the default form submission
 
@@ -15,6 +31,20 @@
 
             // Display the values in an alert
             alert(`Name: ${name}\nAge: ${age}\nSex: ${sex}`);
+
+            // Store the data in Firestore
+            db.collection('userInfo').add({
+                name: name,
+                age: age,
+                sex: sex,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                console.log('Data added successfully!');
+                // Optionally, reset the form after submission
+                document.querySelector('form').reset();
+            }).catch((error) => {
+                console.error('Error adding data: ', error);
+            });
         }
     </script>
 </head>
