@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Submission</title>
+    <script>
+        function submitForm(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get the values from the form
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const sex = document.querySelector('input[name="sex"]:checked').value;
+
+            // Display the values in an alert
+            alert(`Name: ${name}\nAge: ${age}\nSex: ${sex}`);
+        }
+    </script>
+</head>
+<body>
+    <h1>User Information Form</h1>
+    <form onsubmit="submitForm(event)">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" required><br><br>
+
+        <label>Sex:</label><br>
+        <input type="radio" id="male" name="sex" value="Male" required>
+        <label for="male">Male</label><br>
+        <input type="radio" id="female" name="sex" value="Female">
+        <label for="female">Female</label><br>
+        <input type="radio" id="other" name="sex" value="Other">
+        <label for="other">Other</label><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
